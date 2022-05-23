@@ -1,0 +1,14 @@
+<script setup lang="ts">
+import { RouterView } from 'vue-router'
+
+</script>
+
+<template>
+  <div class="bg-gradient-to-tr from-green-500 via-blue-500 to-purple-500 w-full h-screen flex justify-center items-center relative">
+    <router-view/>
+  </div>
+</template>
+
+<style>
+
+</style>
