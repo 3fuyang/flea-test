@@ -73,7 +73,10 @@ async function handleLogin () {
       <span class="font-bold">密码</span>
       <input data-test="password" type="password" class="px-1 outline-none rounded-md border-gray-400 focus:outline-blue-400" v-model="password" placeholder="Password"/>
     </fieldset>
-    <div data-test="info" class="text-red-500">{{message}}</div>
+    <div
+      data-test="info"
+      class="text-red-500"
+      v-if="message.length">{{message}}</div>
     <button
       data-test="button"
       class="btn btn-green w-16"
