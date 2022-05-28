@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
-import axios from 'axios'
+import axios, { type AxiosResponse } from 'axios'
 
 const type = ref<'member' | 'admin'>('member')
 
@@ -9,6 +9,8 @@ const username = ref('')
 const password = ref('')
 
 const message = ref('')
+
+const response = ref<AxiosResponse>()
 
 function validate () {
   if (!username.value) {
@@ -25,30 +27,34 @@ function validate () {
   return false
 }
 
-async function handleLogin () {
-  if(validate()) {
+function handleLogin () {
+  if (validate()) {
     const id_pwd = {
       id: username.value,
       password: password.value
     }
     switch (type.value) {
       case 'member': {
-        const is_e = await axios.post(`/api/userlogin`, id_pwd)
-        if (is_e.data) {
-          message.value = '用户登录成功'
-        } else {
-          message.value = '账号或密码错误'
-        }
+        axios.post(`/api/userlogin`, id_pwd)
+          .then((res) => {
+            if (!!(res as any).body || res.data) {
+              message.value = '用户登录成功'
+            } else {
+              message.value = '账号或密码错误'
+            }
+          })
         break
       }
       case 'admin': {
-        const is_e = await axios.post(`/api/adminlogin`, id_pwd)
-        if (is_e.data) {
-          message.value = '管理员登录成功'
-        } else {
-          message.value = '账号或密码错误'
-        }    
-        break    
+        axios.post(`/api/adminlogin`, id_pwd)
+          .then((res) => {
+            if (!!(res as any).body || res.data) {
+              message.value = '管理员登录成功'
+            } else {
+              message.value = '账号或密码错误'
+            }
+          }) 
+        break 
       }
     }
   }
