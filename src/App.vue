@@ -6,7 +6,9 @@ import TopNav from './components/public/TopNav.vue'
 <template>
   <div class="bg-gradient-to-tr from-green-500 via-blue-500 to-purple-500 w-full h-screen flex flex-col justify-center items-center relative">
     <top-nav/>
-    <router-view/>
+    <suspense>
+      <router-view/>
+    </suspense>
   </div>
 </template>
 
