@@ -1,6 +1,9 @@
 import LoginForm from "../login/LoginForm.vue"
-import { test, expect } from "vitest"
+import { test, expect, vi } from "vitest"
 import { mount, flushPromises } from "@vue/test-utils"
+import axios from 'axios'
+
+vi.spyOn(axios, 'post').mockResolvedValue(true)
 
 expect(LoginForm).toBeTruthy()
 
@@ -54,6 +57,7 @@ test('Check login http request', async () => {
   await button.trigger('click')
 
   // mocks已经能拦截到axios请求，flushPromises 疑似没有作用，导致断言无法在 DOM 更新后才执行
+  // 考虑采用其他清洗promises的方法
   await flushPromises()
 
   const info = wrapper.find('[data-test="info"]')

@@ -27,7 +27,7 @@ function validate () {
   return false
 }
 
-function handleLogin () {
+async function handleLogin () {
   if (validate()) {
     const id_pwd = {
       id: username.value,
@@ -35,26 +35,22 @@ function handleLogin () {
     }
     switch (type.value) {
       case 'member': {
-        axios.post(`/api/userlogin`, id_pwd)
-          .then((res) => {
-            if (!!(res as any).body || res.data) {
-              message.value = '用户登录成功'
-            } else {
-              message.value = '账号或密码错误'
-            }
-          })
+        const res = await axios.post('/api/userlogin', id_pwd)
+        if (res) {
+          message.value = '用户登录成功'
+        } else {
+          message.value = '账号或密码错误'
+        }
         break
       }
       case 'admin': {
-        axios.post(`/api/adminlogin`, id_pwd)
-          .then((res) => {
-            if (!!(res as any).body || res.data) {
-              message.value = '管理员登录成功'
-            } else {
-              message.value = '账号或密码错误'
-            }
-          }) 
-        break 
+        const res = await axios.post('/api/userlogin', id_pwd)
+        if (res) {
+          message.value = '管理员登录成功'
+        } else {
+          message.value = '账号或密码错误'
+        }
+        break
       }
     }
   }
