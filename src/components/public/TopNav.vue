@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { RouterLink } from 'vue-router'
+
 </script>
 
 <template>
@@ -10,6 +11,9 @@ import { RouterLink } from 'vue-router'
     <router-link to="/home">
       Home
     </router-link>
+    <router-link to="/detail/1">
+      Detail
+    </router-link>    
   </div>
 </template>
 

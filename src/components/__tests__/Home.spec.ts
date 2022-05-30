@@ -20,28 +20,15 @@ describe('Test Home component', () => {
   
     expect(wrapper.findAll('[data-test="good"]')).toHaveLength(6)
   })
-  
-  test('Test BackToTop affix exists', async () => {
+
+  test('Test BackToTop affix scroll behavior', async () => {
     const affix = wrapper.find('[data-test="affix"]')
 
     expect(affix.exists()).toBe(true)
-  })
-
-  test('Test BackToTop affix scroll behavior', async () => {
-    const main = wrapper.find('[data-test="main"]')
-    const affix = wrapper.find('[data-test="affix"]')
-
-    expect(main.exists()).toBe(true)
-
-    console.log(main.element.toString())
-
-    main.element.scrollTop = main.element.scrollHeight
-
-    expect(main.element.scrollTop).not.toBe(0)
 
     await affix.trigger('click')
 
-    expect(main.element.scrollTop).toBe(0)
+    expect(wrapper.find('[data-test="main"]').element.scrollTop).toBe(0)
   })
 
 })

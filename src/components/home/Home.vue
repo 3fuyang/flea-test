@@ -30,6 +30,7 @@ function scrollToTop () {
     })
   }
 }
+
 </script>
 
 <template>
