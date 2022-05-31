@@ -13,6 +13,9 @@ import { RouterLink } from 'vue-router'
     </router-link>
     <router-link to="/detail/1">
       Detail
+    </router-link>
+    <router-link to="/order">
+      Order
     </router-link>    
   </div>
 </template>

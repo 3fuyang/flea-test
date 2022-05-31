@@ -15,7 +15,12 @@ const routes = [
     path: '/detail/:gid',
     name: 'detail',
     component: () => import('@/components/detail/Detail.vue')
-  }
+  },
+  {
+    path: '/order',
+    name: 'order',
+    component: () => import('@/components/order/Order.vue')
+  },
 ]
 
 const router = createRouter({

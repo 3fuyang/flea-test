@@ -48,7 +48,7 @@ function scrollToTop () {
           src="/8.jpg"
           class="box-border border-2 border-gray-200 object-fill w-25"/>
         <section class="relative text-sm tracking-wider overflow-hidden flex-1">
-          <p class="m-0 truncate w-full overflow-hidden truncate px-3 absolute top-0">{{good.title}}</p>
+          <p class="m-0 truncate w-full overflow-hidden px-3 absolute top-0">{{good.title}}</p>
           <p class="m-0 text-lg text-orange-500 font-semibold absolute bottom-0 left-1/3">￥{{Number.parseFloat(good.price).toFixed(2)}}</p>
         </section>
       </div>
