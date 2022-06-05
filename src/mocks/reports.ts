@@ -31,7 +31,15 @@ const mockGetReports: Report[] = [
     buyerID: '1821504',
     sellerID: '2005151',
     status: '已驳回',
-  }
+  },
+  {
+    time: '2022/5/15',
+    no: '4',
+    orderID: '4',
+    buyerID: '1821504',
+    sellerID: '2005151',
+    status: '待处理',
+  }  
 ]
 
 export { mockGetReports }

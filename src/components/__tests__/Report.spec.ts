@@ -23,7 +23,7 @@ test('Testing import', async () => {
 test('Testing list rendering', async () => {
   const reports = wrapper.findAll('[data-test="report"]')
 
-  expect(reports).toHaveLength(3)
+  expect(reports).toHaveLength(4)
 })
 
 test('Testing sellerID rendering', async () => {
@@ -51,15 +51,19 @@ test('Testing status rendering', async () => {
 })
 
 test('Testing ban button behavior', async () => {
-  const stat = wrapper.findAll('[data-test="status"]')[0]
+  const stats = wrapper.findAll('[data-test="status"]')
   const ban = wrapper.findAll('[data-test="ban"]')[0]
-  const reject = wrapper.findAll('[data-test="reject"]')[0]
+  const reject = wrapper.findAll('[data-test="reject"]')[3]
 
   expect(ban.text()).toBe('封禁')
   expect(reject.text()).toBe('驳回')
-  expect(stat.text()).toBe('待处理')
+  expect(stats[0].text()).toBe('待处理')
 
   await ban.trigger('click')
 
-  expect(stat.text()).toBe('已封禁')
+  expect(stats[0].text()).toBe('已封禁')
+
+  await reject.trigger('click')
+
+  expect(stats[3].text()).toBe('已驳回')
 })

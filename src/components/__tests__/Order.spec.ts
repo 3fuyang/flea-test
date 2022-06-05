@@ -46,20 +46,32 @@ test('Testing status rendering', async () => {
   const stat = wrapper.findAll('[data-test="stat"]')
 
   expect(stat[0].text()).toContain('待确认')
-  expect(stat[1].text()).toContain('待确认')
-  expect(stat[2].text()).toContain('待确认')
+  expect(stat[1].text()).toContain('已封禁')
+  expect(stat[2].text()).toContain('已驳回')
 })
 
 test('Testing button behavior', async () => {
-  const button = wrapper.findAll('[data-test="operate"]')[0]
+  const buttons = wrapper.findAll('[data-test="operate"]')
 
-  expect(button.text()).toBe('确认订单')
+  expect(buttons[0].text()).toBe('确认订单')
 
-  await button.trigger('click')
+  await buttons[0].trigger('click')
 
-  expect(button.text()).toBe('举报订单')
+  expect(buttons[0].text()).toBe('举报订单')
 
-  await button.trigger('click')
+  await buttons[0].trigger('click')
 
-  expect(button.text()).toBe('举报受理中')
+  expect(buttons[0].text()).toBe('举报受理中')
+
+  expect(buttons[1].text()).toBe('举报受理')
+
+  await buttons[1].trigger('click')
+
+  expect(buttons[1].text()).toBe('举报受理')
+
+  expect(buttons[2].text()).toBe('举报')
+
+  await buttons[2].trigger('click')
+
+  expect(buttons[2].text()).toBe('举报受理中')
 })
