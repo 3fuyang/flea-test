@@ -21,6 +21,11 @@ const routes = [
     name: 'order',
     component: () => import('@/components/order/Order.vue')
   },
+  {
+    path: '/report',
+    name: 'report',
+    component: () => import('@/components/report/Report.vue')
+  }
 ]
 
 const router = createRouter({
