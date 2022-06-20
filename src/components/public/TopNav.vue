@@ -14,6 +14,9 @@ import { RouterLink } from 'vue-router'
     <router-link to="/detail/1">
       Detail
     </router-link>
+    <router-link to="/goods">
+      Goods
+    </router-link>       
     <router-link to="/order">
       Order
     </router-link>    
