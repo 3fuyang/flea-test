@@ -1,22 +1,31 @@
 <script lang="ts" setup>
 import axios from 'axios'
 import { ref } from 'vue'
+import type { RawGood } from '@/types/types'
 
 interface GoodInfo {
   good_id: string
-  images: string
+  image: string
   price: string
   title: string
 }
 
-const goodsList = ref<GoodInfo[]>()
+const goodsList = ref<GoodInfo[]>([])
 
-const tmp = await axios.get('/api/getTrends')
+const tmp = await axios.get('/api/getAll')
 
 if (Array.isArray(tmp)) {
-  goodsList.value = tmp
+  goodsList.value.push(...tmp)
 } else {
-  goodsList.value = [...tmp.data, ...tmp.data]
+  tmp.data.forEach((good: RawGood) => {
+    goodsList.value.push({
+      good_id: good.good_id,
+      image: good.image,
+      price: good.price.toFixed(2),
+      title: good.title      
+    })
+  })
+  goodsList.value = [...tmp.data]
 }
 
 // 表单容器
