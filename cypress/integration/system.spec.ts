@@ -7,7 +7,7 @@
 
 describe('E2E test for flea-test application', () => {
   before(() => {
-    cy.request('http://127.0.0.1:8082/api/resetDB')
+    cy.request('http://106.15.78.201:8086/api/resetDB')
   })
   
   // 进入app首页

@@ -23,7 +23,7 @@ app
   .use('/api', resetAPI)
 
 // 开启服务器
-const server = app.listen(8082, () => {
+const server = app.listen(8086, () => {
   const host = (server.address() as AddressInfo).address
   const port = (server.address() as AddressInfo).port
   console.log(`Server is running at http://%s:%s`, host, port)
