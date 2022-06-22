@@ -12,6 +12,8 @@ const suspenseOrder = defineComponent({
 
 vi.spyOn(axios, 'get').mockResolvedValue(mockGetOrders)
 
+vi.spyOn(axios, 'post').mockResolvedValue(true)
+
 const wrapper = mount(suspenseOrder)
 
 await flushPromises()

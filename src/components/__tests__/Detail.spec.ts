@@ -7,6 +7,8 @@ import { defineComponent } from "vue"
 
 vi.spyOn(axios, 'get').mockResolvedValue(mockGetDetail)
 
+vi.spyOn(axios, 'post').mockResolvedValue(true)
+
 vi.mock('vue-router', () => ({
   useRoute: vi.fn().mockImplementation(() => ({
     params: {
@@ -20,7 +22,7 @@ vi.mock('vue-router', () => ({
 
 const SuspenseDetail = defineComponent({
   components: { DetailVue },
-  template: `<Suspense><DetailVue></Suspense>`
+  template: `<Suspense><DetailVue/></Suspense>`
 })
 
 const wrapper = mount(SuspenseDetail)
