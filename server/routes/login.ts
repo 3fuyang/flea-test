@@ -11,7 +11,7 @@ app.use(express.urlencoded({extended:  false}))
 app.post('/userlogin', (req, res) => {
   let doesExist = false
   connection.query(
-    `select count(*) as cnt from userAccount where user_id = ? and user_password = ?` ,
+    `select count(*) as cnt from userAccount where user_id = ? and user_password = ? and available=1` ,
     [req.body.id, req.body.password],
     (err, result) => {
       if (err) throw err
@@ -25,7 +25,7 @@ app.post('/userlogin', (req, res) => {
 app.post('/adminlogin', (req, res) => {
   let doesExist = false
   connection.query(
-    `select count(*) as cnt from adminAccount where user_id = ? and admin_password = ?`, 
+    `select count(*) as cnt from adminAccount where admin_id = ? and admin_password = ?`, 
     [req.body.id, req.body.password],
     (err, result) => {
       if (err) throw err

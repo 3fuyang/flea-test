@@ -37,7 +37,8 @@ async function handleLogin () {
     switch (type.value) {
       case 'member': {
         const res = await axios.post('/api/userlogin', id_pwd)
-        if (res.data || res) {
+        /// @ts-ignore
+        if (res.data === true || res === true) {
           message.value = '用户登录成功'
           router.push('/home')
         } else {
@@ -47,7 +48,8 @@ async function handleLogin () {
       }
       case 'admin': {
         const res = await axios.post('/api/adminlogin', id_pwd)
-        if (res.data || res) {
+        /// @ts-ignore
+        if (res.data === true || res === true) {
           message.value = '管理员登录成功'
           router.push('/report')
         } else {

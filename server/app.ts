@@ -5,6 +5,7 @@ import detailAPI from './routes/detail'
 import orderAPI from './routes/order'
 import goodsAPI from './routes/goods'
 import reportAPI from './routes/report'
+import resetAPI from './routes/reset'
 
 import { AddressInfo } from 'net'
 
@@ -19,6 +20,7 @@ app
   .use('/api', orderAPI)
   .use('/api', goodsAPI)
   .use('/api', reportAPI)
+  .use('/api', resetAPI)
 
 // 开启服务器
 const server = app.listen(8082, () => {

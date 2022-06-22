@@ -1,12 +1,17 @@
 <script lang="ts" setup>
-import { RouterLink } from 'vue-router'
+import { RouterLink, useRouter } from 'vue-router'
 
+const router = useRouter()
+
+function logout () {
+  router.push('/')
+}
 </script>
 
 <template>
   <div class="p-4 box-border h-8 flex justify-evenly items-center gap-10 top-0 left-0 right-0 absolute bg-white bg-opacity-80">
     <router-link to="/">
-      Login
+      LogIn
     </router-link>    
     <router-link to="/home">
       Home
@@ -22,7 +27,13 @@ import { RouterLink } from 'vue-router'
     </router-link>    
     <router-link to="/report">
       Report
-    </router-link>   
+    </router-link>  
+    <button
+      @click="logout"
+      data-test="logOut"
+      class="shadow-lg outline-none px-2 py-0 rounded-md bg-red-500 text-red-50 tracking-wider hover:bg-red-600 hover:text-white box-border border-light-100 border-1 transition-all duration-200">
+      LogOut
+    </button> 
   </div>
 </template>
 

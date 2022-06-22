@@ -51,7 +51,7 @@ app.get('/getOrders/:user_id', (req, res) => {
 // 确认订单
 app.get('/confirmOrder/:oid', (req, res) => {
   connection.query(
-    `update orderDate set stat='已完成' where order_id=?`,
+    `update orderData set stat='已完成' where order_id=?`,
     req.params.oid,
     (err, result) => {
       if (err) throw err
