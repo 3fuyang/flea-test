@@ -3,6 +3,7 @@ import axios from 'axios';
 import { ref } from 'vue'
 
 interface Order {
+  oid: string
   gid: string
   price: string
   title: string
@@ -12,11 +13,12 @@ interface Order {
 
 const orderList = ref<Order[]>([])
 
-const tmp = await axios.get('/api/getOrders/1951002')
+const tmp = await axios.get('/api/getOrders/1951001')
 
 if (tmp.data) {
   tmp.data.forEach((order: any) => {
     orderList.value.push({
+      oid: order.order_id,
       gid: order.good_id,
       price: order.price,
       title: order.title,
@@ -48,16 +50,26 @@ function getButtonText (stat: Order['status']) {
 function handleClick (order: Order) {
   switch (order.status) {
     case '待确认':
-      order.status = '已完成'
+      order.status = '已完成'      
+      // 调用接口：修改订单状态为已完成
+      axios.get(`/api/confirmOrder/${order.oid}`)
       break
     case '已完成':
       order.status = '待处理'
+      // 调用接口：为该订单生成举报数据 
+      let body = {
+        orderID: order.oid,
+        reason: 'Not good'
+      }      
+      axios.post(`/api/reportOrder`, body)
       break
     case '待处理':
       break
     case '已封禁':
       break
     case '已驳回':
+      // 调用接口：修改举报状态为“待处理”
+      axios.get(`/api/restartReport/${order.oid}`)
       order.status = '待处理'
       break
   }

@@ -73,5 +73,7 @@ test('Testing button behavior', async () => {
 
   await buttons[2].trigger('click')
 
+  await flushPromises()
+
   expect(buttons[2].text()).toBe('举报受理中')
 })

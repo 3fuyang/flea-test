@@ -1,13 +1,6 @@
-class Detail {
-  goodId: string = ''
-  title: string = ''
-  type: string = ''
-  campus: string = ''
-  price: string = ''
-  intro: string = ''
-}
+import type { Detail } from '@/types/types'
 
-const mockGetDetail:Detail = {
+const mockGetDetail: Detail = {
   goodId: '1',
   title: '套装 JavaScript入门 《JS高级程序设计》《JS DOM编程艺术》《你不知道的JS》',
   type: '图书音像',

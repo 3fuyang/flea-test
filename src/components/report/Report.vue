@@ -2,9 +2,14 @@
 import axios from 'axios'
 import { ref } from 'vue'
 
+interface RawReport {
+  order_id: string
+  buyer: string
+  seller: string
+  stat: '待处理' | '已封禁' | '已驳回'
+}
+
 interface Report {
-  time: string
-  no: string
   orderID: string
   buyerID: string
   sellerID: string
@@ -15,21 +20,35 @@ const reportList = ref<Report[]>([])
 
 function banReport (report: Report) {
   if (report.status === '待处理') {
+    const body = {
+      userID: report.sellerID,
+      orderID: report.orderID
+    }
+    axios.post(`/api/banAccusedUser`, body)
     report.status = '已封禁'
   }
 }
 
 function rejectReport (report: Report) {
   if (report.status === '待处理') {
+    const body = {
+      orderID: report.orderID
+    }
+    axios.post(`/api/rejectReport`, body)    
     report.status = '已驳回'
   }
 }
 
-const tmp = await axios.get(`/api/getAdminName/1`)
+const tmp = await axios.get(`/api/getAllReport`)
 
 if (tmp.data) {
-  tmp.data.forEach((report: Report) => {
-    reportList.value.push(report)
+  tmp.data.forEach((report: RawReport) => {
+    reportList.value.push({
+      orderID: report.order_id,
+      buyerID: report.buyer,
+      sellerID: report.seller,
+      status: report.stat
+    })
   })
 } else {
   (tmp as any).forEach((report: Report) => {
@@ -57,7 +76,7 @@ if (tmp.data) {
         data-test="report"
         class="flex flex-col bg-white box-border p-3 rounded-md w-90">
         <div class="flex justify-around h-6 transition duration-200 relative">
-          <p class="label">{{report.no}}</p>
+          <p class="label">{{report.orderID}}</p>
           <p
             data-test="sellerID"
             class="label">{{report.sellerID}}</p>

@@ -1,6 +1,9 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
 import axios from 'axios'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 interface Good {
   good_id: string
@@ -9,7 +12,7 @@ interface Good {
   price: string
   category: '图书音像' | '电子产品' | '美妆个护' | '运动户外' | '生活电器' | '其他'
   campus: '嘉定校区' | '四平路校区' | '沪西校区' | '沪北校区'
-  info: string
+  intro: string
   available: boolean
 }
 
@@ -51,8 +54,39 @@ const newGoodForm = ref({
   price: undefined,
   category: undefined,
   campus: undefined,
-  info: ''
+  intro: ''
 })
+
+// 上架新商品
+function addGood () {
+  if (newGoodForm.value.title === '') {
+    return '请输入商品标题'
+  } else if (!newGoodForm.value.price) {
+    return '请输入商品价格'
+  } else if (!newGoodForm.value.category) {
+    return '请选择商品类型'
+  } else if (!newGoodForm.value.campus) {
+    return '请选择商品校区'
+  } else if (!newGoodForm.value.intro) {
+    return '请输入商品简介'
+  } else {
+    const body = [
+      '1951001',
+      newGoodForm.value.price,
+      newGoodForm.value.category,
+      newGoodForm.value.title,
+      newGoodForm.value.campus,
+      newGoodForm.value.intro,
+      'default.png'
+    ]
+
+    axios.post(`/api/addGood`, body)
+
+    closeModal()
+
+    router.go(0)
+  }
+}
 
 // 关闭模态框
 function closeModal () {
@@ -63,7 +97,7 @@ function closeModal () {
     newGoodForm.value.price = undefined
     newGoodForm.value.category = undefined
     newGoodForm.value.campus = undefined
-    newGoodForm.value.info = ''
+    newGoodForm.value.intro = ''
   } else if (infoModalSwitch.value) {
     infoModalSwitch.value = false
     currID.value = ''
@@ -71,11 +105,14 @@ function closeModal () {
 }
 
 // 下架商品
-function deleteGood (id: string) {
+function deleteGood (gid: string) {
   // 调用接口
+  axios.get(`/api/delGood/${gid}`)
+
+  router.go(0)
 }
 
-const res = await axios.get('/api/getTrends')
+const res = await axios.get('/api/getMyGoods/1951001')
 
 if (res.data) {
   goods.value.push(...res.data)
@@ -125,7 +162,7 @@ if (res.data) {
   <teleport to="body">
     <div
       v-if="uploadModalSwitch"
-      data-test="info-modal"
+      data-test="intro-modal"
       class="modal">
       <button
         class="button px-2 py-0 hover:text-red-500 hover:border-red-500 self-end"
@@ -167,12 +204,13 @@ if (res.data) {
       <div class="input-wrapper">
         <span class="font-bold">介绍</span>
         <textarea
-          data-test="info"
+          data-test="intro"
           class="input"
-          v-model="newGoodForm.info"
-          placeholder="Info"/>        
+          v-model="newGoodForm.intro"
+          placeholder="intro"/>        
       </div> 
       <button
+        @click="addGood"
         class="button hover:text-green-500 hover:border-green-500">
         添加商品
       </button>                             
@@ -199,7 +237,7 @@ if (res.data) {
       </div>     
       <div class="input-wrapper">
         <p class="font-bold text-base">介绍：</p>
-        <p class="text-dark-50 hover:underline hover:text-gray-500">{{currGood.info}}</p>
+        <p class="text-dark-50 hover:underline hover:text-gray-500">{{currGood.intro}}</p>
       </div>        
     </div>
     <div v-if="uploadModalSwitch || infoModalSwitch" class="absolute top-0 bottom-0 left-0 right-0 bg-dark-50 opacity-25" @click="closeModal"/>

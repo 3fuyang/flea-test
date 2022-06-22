@@ -4,8 +4,17 @@ import { flushPromises, mount } from "@vue/test-utils"
 import { defineComponent } from "vue"
 import axios from 'axios'
 import { mockGetGoods } from '@/mocks/goods'
+import { useRouter } from 'vue-router'
 
 vi.spyOn(axios, 'get').mockResolvedValue(mockGetGoods)
+
+vi.mock('vue-router', () => ({
+  useRouter: vi.fn(() => (
+    {
+      push: () => {}
+    }
+  ))
+}))
 
 const SuspenseHome = defineComponent({
   components: { HomeVue },
@@ -29,6 +38,14 @@ describe('Test Home component', () => {
     await affix.trigger('click')
 
     expect(wrapper.find('[data-test="main"]').element.scrollTop).toBe(0)
+  })
+
+  test('Test click to navagate', async () => {
+    const btn = wrapper.findAll('[data-test="good"]')
+
+    await btn[0].trigger('click')
+
+    expect(useRouter).toHaveBeenCalledTimes(1)
   })
 
 })

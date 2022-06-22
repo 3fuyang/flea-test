@@ -9,3 +9,12 @@ export interface RawGood {
   avaiable: boolean
   image: string
 }
+
+export class Detail {
+  goodId: string = ''
+  title: string = ''
+  type: string = ''
+  campus: string = ''
+  price: string = ''
+  intro: string = ''
+}

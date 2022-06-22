@@ -1,4 +1,5 @@
 interface Order {
+  oid: string
   gid: string
   price: string
   title: string
@@ -8,6 +9,7 @@ interface Order {
 
 const mockGetOrders: Order[] = [
   {
+    oid: '0',
     gid: '0',
     price: '198',
     title: '派克威雅XL系列 樱花粉特别款礼盒',
@@ -15,6 +17,7 @@ const mockGetOrders: Order[] = [
     status: '待确认'
   },
   {
+    oid: '1',    
     gid: '1',
     price: '15',
     title: '大学物理学 (附)网络课程&配套习题',
@@ -22,6 +25,7 @@ const mockGetOrders: Order[] = [
     status: '已封禁'    
   },
   {
+    oid: '2',    
     gid: '2',
     price: '3499',
     title: 'Apple iPad Pro 11英寸平板电脑',

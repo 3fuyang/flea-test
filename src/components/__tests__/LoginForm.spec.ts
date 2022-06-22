@@ -5,6 +5,12 @@ import axios from 'axios'
 
 vi.spyOn(axios, 'post').mockResolvedValue(true)
 
+vi.mock('vue-router', () => ({
+  useRouter: vi.fn().mockImplementation(() => ({
+    push: vi.fn()
+  }))
+}))
+
 expect(LoginForm).toBeTruthy()
 
 const wrapper = mount(LoginForm)

@@ -12,6 +12,9 @@ vi.mock('vue-router', () => ({
     params: {
       gid: 1
     }
+  })),
+  useRouter: vi.fn(() => ({
+    push: vi.fn()
   }))
 }))
 

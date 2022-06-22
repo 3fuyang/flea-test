@@ -1,6 +1,9 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
-import axios, { type AxiosResponse } from 'axios'
+import axios from 'axios'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const type = ref<'member' | 'admin'>('member')
 
@@ -9,8 +12,6 @@ const username = ref('')
 const password = ref('')
 
 const message = ref('')
-
-const response = ref<AxiosResponse>()
 
 function validate () {
   if (!username.value) {
@@ -36,17 +37,19 @@ async function handleLogin () {
     switch (type.value) {
       case 'member': {
         const res = await axios.post('/api/userlogin', id_pwd)
-        if (res) {
+        if (res.data || res) {
           message.value = '用户登录成功'
+          router.push('/home')
         } else {
           message.value = '账号或密码错误'
         }
         break
       }
       case 'admin': {
-        const res = await axios.post('/api/userlogin', id_pwd)
-        if (res) {
+        const res = await axios.post('/api/adminlogin', id_pwd)
+        if (res.data || res) {
           message.value = '管理员登录成功'
+          router.push('/report')
         } else {
           message.value = '账号或密码错误'
         }

@@ -1,9 +1,11 @@
 <script lang="ts" setup>
 import axios from 'axios'
 import { ref } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
+import type { RawGood } from '@/types/types'
 
 const route = useRoute()
+const router = useRouter()
 
 class Detail {
   goodId: string = ''
@@ -12,19 +14,21 @@ class Detail {
   campus: string = ''
   price: string = ''
   intro: string = ''
+  seller: string = ''
 }
 
 const detail = ref<Detail>(new Detail())
 
-const tmp = await axios.get(`/api/getGoods/${route.params.gid}`)
+const tmp = await axios.get(`/api/getGood/${route.params.gid}`)
 
-if (tmp.data) {
+if (tmp.data as RawGood) {
   detail.value.goodId = route.params.gid as string
   detail.value.title = tmp.data.title
   detail.value.type = tmp.data.category
   detail.value.campus = tmp.data.campus
   detail.value.intro = tmp.data.intro
   detail.value.price = tmp.data.price
+  detail.value.seller = tmp.data.seller_id
 } else {
   detail.value.goodId = route.params.gid as string
   detail.value.title = (tmp as any).title
@@ -37,7 +41,25 @@ if (tmp.data) {
 const buttonText = ref<'立即购买' | '已售出'>('立即购买')
 
 function handlePurchase () {
-  buttonText.value = '已售出'
+  if (buttonText.value === '立即购买') {
+    buttonText.value = '已售出'
+
+    let date = new Date()
+    date.setHours(date.getHours() + 8)
+
+    const order = {
+      buyer: '1951001',
+      seller: detail.value.seller,
+      goodID: detail.value.goodId,
+      price: detail.value.price,
+      generatedTime: date.toISOString().slice(0, 19).replace('T', ' '),
+      stat: '待确认'
+    }
+
+    axios.post(`/api/generateOrder`, order)
+
+    router.push('/order')
+  }
 }
 </script>
 

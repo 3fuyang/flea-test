@@ -1,6 +1,10 @@
 import express from 'express'
 import loginAPI from './routes/login'
 import homeAPI from './routes/home'
+import detailAPI from './routes/detail'
+import orderAPI from './routes/order'
+import goodsAPI from './routes/goods'
+import reportAPI from './routes/report'
 
 import { AddressInfo } from 'net'
 
@@ -11,6 +15,10 @@ app
   .use('/public', express.static('public'))
   .use('/api', loginAPI)
   .use('/api', homeAPI)
+  .use('/api', detailAPI)
+  .use('/api', orderAPI)
+  .use('/api', goodsAPI)
+  .use('/api', reportAPI)
 
 // 开启服务器
 const server = app.listen(8082, () => {

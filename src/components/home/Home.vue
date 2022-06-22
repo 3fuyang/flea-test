@@ -2,6 +2,9 @@
 import axios from 'axios'
 import { ref } from 'vue'
 import type { RawGood } from '@/types/types'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 interface GoodInfo {
   good_id: string
@@ -40,6 +43,10 @@ function scrollToTop () {
   }
 }
 
+function navigateToDetail (gid: string) {
+  router.push(`/detail/${gid}`)
+}
+
 </script>
 
 <template>
@@ -52,6 +59,7 @@ function scrollToTop () {
       <div
         v-for="good in goodsList"
         data-test="good"
+        @click="navigateToDetail(good.good_id)"
         class="flex box-border p-3 bg-white rounded-md w-90 h-30 hover:shadow-md transition duration-200 cursor-pointer relative">
         <img
           src="/8.jpg"
