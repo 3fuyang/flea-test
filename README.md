@@ -19,7 +19,11 @@ npm run test:unit
 # 系统测试（E2E 测试）
 npm run build
 
+# 打开 Cypress 桌面应用 app 以手动运行测试
 npm run test:e2e
+
+# 或者 自动执行所有测试，并生成视频文件
+npm run test:e2e:ci
 ```
 
 ## 注意
