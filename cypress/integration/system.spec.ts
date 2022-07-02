@@ -1,4 +1,4 @@
-/// <reference types="cypress">
+// @ts-nocheck
 describe('E2E test for flea-test application', () => {
   before(() => {
     cy.request('http://106.15.78.201:8086/api/resetDB')
