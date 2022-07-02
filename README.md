@@ -31,3 +31,7 @@ npm run test:e2e:ci
 ### 编辑器提示 Cypress 目录下 TS 类型错误
 
 这是 VS Code 插件 Volar 的 [takeover mode](https://vuejs.org/guide/typescript/overview.html#takeover-mode) 导致的，在编写 Cypress 脚本时暂时关闭该模式即可。
+
+### 关于 Cypress 自动生成的视频
+
+画质较差，且视频尾部缺失，可以通过在编写测试时为一些交互事件添加一些 timeout 来优化最后输出的视频效果。
