@@ -62,6 +62,13 @@ function handleClick (order: Order) {
         reason: 'Not good'
       }      
       axios.post(`/api/reportOrder`, body)
+        .then((res) => {
+          if (res.data === true) {
+            return
+          } else {
+            console.log(res)
+          }
+        })
       break
     case '待处理':
       break
